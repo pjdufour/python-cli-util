@@ -1,3 +1,6 @@
+"""
+Provides utility functions for human interaction at the command line.
+"""
 import sys
 
 
@@ -22,6 +25,9 @@ def cron_command(f, user, command, filename):
 
 
 def request_input(question, value, required, options=None):
+    """
+    Prompts for user input for a text value to a variable
+    """
     if value:
         return value
     else:
@@ -61,7 +67,13 @@ def request_input(question, value, required, options=None):
             return value
 
 
-def request_continue():
+def request_continue(strict=True):
+    """
+    Prompts for user input for if the process should continue.
+    """
     print "Continue (y/n)?",
     confirm = raw_input()
-    return confirm and confirm.lower() == "y"
+    if strict:
+        return confirm and confirm.lower() == "y"
+    else:
+        return confirm and (confirm.lower() in ["1", "y", "yes", "continue"])
